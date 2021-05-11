@@ -14,3 +14,13 @@ ON e.emp_no = m.emp_no
 INNER JOIN departments AS d
 ON m.dept_no = d.dept_no;
 
+SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
+FROM employees AS e
+INNER JOIN dept_employees AS x
+ON e.emp_no = x.emp_no
+INNER JOIN departments AS d
+ON x.dept_no = d.dept_no;
+
+SELECT first_name, last_name, sex
+FROM employees
+WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
