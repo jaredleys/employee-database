@@ -25,20 +25,21 @@ SELECT first_name, last_name, sex
 FROM employees
 WHERE first_name = 'Hercules' AND last_name LIKE 'B%';
 
--- Doesn't quite work, needs revision
-SELECT e.emp_no, e.last_name, e.first_name
+SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
 FROM employees AS e
-WHERE e.emp_no IN (
-	SELECT emp_no
-	FROM dept_employees
-	WHERE dept_no IN (
-		SELECT dept_no
-		FROM departments
-		WHERE dept_name = 'Sales'
-	)
-);
+LEFT JOIN dept_employees AS x
+ON e.emp_no = x.emp_no
+LEFT JOIN departments AS d
+ON x.dept_no = d.dept_no
+WHERE d.dept_name = 'Sales';
 
---Another query goes here before next
+SELECT e.emp_no, e.last_name, e.first_name, d.dept_name
+FROM employees AS e
+LEFT JOIN dept_employees AS x
+ON e.emp_no = x.emp_no
+LEFT JOIN departments AS d
+ON x.dept_no = d.dept_no
+WHERE d.dept_name = 'Sales' OR d.dept_name = 'Development';
 
 SELECT last_name, COUNT(last_name) AS last_name_count
 FROM employees
